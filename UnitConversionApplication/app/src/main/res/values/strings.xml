@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Travel Companion</string>
+    <string name="title_text">TRAVEL COMPANION</string>
+    <string name="category_label">Select Category</string>
+    <string name="from_label">From</string>
+    <string name="to_label">To</string>
+    <string name="input_hint">Enter value</string>
+    <string name="convert_button_text">CONVERT NOW</string>
+    <string name="result_default">Result: ---</string>
+    <string name="result_format">Result: %.2f %s</string>
+    <string name="bg_image_desc">Travel background image</string>
+    <string name="enter_value_toast">Enter a value</string>
+</resources>
