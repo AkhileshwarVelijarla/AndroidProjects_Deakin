@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.quizapp_31c.viewmodel.QuizViewModel" />
+    </data>
+
+    <ScrollView
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screen_background"
+        android:fillViewport="true"
+        tools:context=".MainActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@color/card_background"
+                android:elevation="2dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="18dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/theme_toggle_title"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/theme_toggle_subtitle"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/themeSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/theme_toggle_label"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/welcomeContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/card_background"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="24dp"
+                app:visibleGone="@{viewModel.uiState.welcomeVisible}">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/welcome_title"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/welcome_subtitle"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/nameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="@color/brand_primary"
+                    android:hint="@string/name_hint"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPersonName"
+                    android:minHeight="56dp"
+                    android:paddingHorizontal="16dp"
+                    android:text="@={viewModel.playerNameInput}"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/text_secondary" />
+
+                <Button
+                    android:id="@+id/startButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/brand_primary"
+                    android:onClick="@{() -> viewModel.onStartQuiz()}"
+                    android:text="@string/start_quiz" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quizContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/card_background"
+                android:elevation="4dp"
+                android:orientation="vertical"
+                android:padding="24dp"
+                app:visibleGone="@{viewModel.uiState.quizVisible}">
+
+                <TextView
+                    android:id="@+id/greetingText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{viewModel.uiState.greetingText}'
+                    android:textColor="@color/text_secondary"
+                    android:textSize="16sp"
+                    tools:text="Player: Alex" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/progressText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text='@{viewModel.uiState.progressText}'
+                        android:textColor="@color/brand_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="Question 2 of 5" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text='@{viewModel.uiState.progressPercentText}'
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="40% complete" />
+                </LinearLayout>
+
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="10dp"
+                    android:max='@{viewModel.uiState.progressMax}'
+                    android:progress='@{viewModel.uiState.progressValue}'
+                    android:progressTint="@color/brand_primary"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    tools:progress="2" />
+
+                <TextView
+                    android:id="@+id/questionText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text='@{viewModel.uiState.questionText}'
+                    android:textColor="@color/black"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    tools:text="12 + 7 = ?" />
+
+                <Button
+                    android:id="@+id/optionButton1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:enabled='@{viewModel.uiState.optionOne.enabled}'
+                    android:onClick='@{() -> viewModel.onSelectOption(0)}'
+                    android:text='@{viewModel.uiState.optionOne.label}'
+                    app:optionState='@{viewModel.uiState.optionOne.state}'
+                    tools:text="18" />
+
+                <Button
+                    android:id="@+id/optionButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:enabled='@{viewModel.uiState.optionTwo.enabled}'
+                    android:onClick='@{() -> viewModel.onSelectOption(1)}'
+                    android:text='@{viewModel.uiState.optionTwo.label}'
+                    app:optionState='@{viewModel.uiState.optionTwo.state}'
+                    tools:text="20" />
+
+                <Button
+                    android:id="@+id/optionButton3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:enabled='@{viewModel.uiState.optionThree.enabled}'
+                    android:onClick='@{() -> viewModel.onSelectOption(2)}'
+                    android:text='@{viewModel.uiState.optionThree.label}'
+                    app:optionState='@{viewModel.uiState.optionThree.state}'
+                    tools:text="19" />
+
+                <Button
+                    android:id="@+id/optionButton4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:enabled='@{viewModel.uiState.optionFour.enabled}'
+                    android:onClick='@{() -> viewModel.onSelectOption(3)}'
+                    android:text='@{viewModel.uiState.optionFour.label}'
+                    app:optionState='@{viewModel.uiState.optionFour.state}'
+                    tools:text="17" />
+
+                <TextView
+                    android:id="@+id/feedbackText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text='@{viewModel.uiState.feedbackText}'
+                    android:textSize="16sp"
+                    app:feedbackColor='@{viewModel.uiState.feedbackColor}'
+                    tools:text="Select one option, then submit." />
+
+                <Button
+                    android:id="@+id/submitButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/feedback_correct"
+                    android:enabled='@{viewModel.uiState.submitEnabled}'
+                    android:onClick='@{() -> viewModel.onSubmitAnswer()}'
+                    android:text="@string/submit_answer" />
+
+                <Button
+                    android:id="@+id/nextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:backgroundTint="@color/brand_primary"
+                    android:onClick='@{() -> viewModel.onNextQuestion()}'
+                    android:text='@{viewModel.uiState.nextButtonText}'
+                    app:visibleGone='@{viewModel.uiState.nextVisible}'
+                    tools:text="Next Question" />
+
+                <Button
+                    android:id="@+id/quitButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:backgroundTint="@color/text_secondary"
+                    android:onClick='@{() -> viewModel.onFinishRequested()}'
+                    android:text="@string/finish_quiz" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/resultContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/card_background"
+                android:elevation="4dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="24dp"
+                app:visibleGone="@{viewModel.uiState.resultVisible}">
+
+                <TextView
+                    android:id="@+id/resultTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{viewModel.uiState.resultTitle}'
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    tools:text="Well done, Alex" />
+
+                <TextView
+                    android:id="@+id/resultMessageText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text='@{viewModel.uiState.resultMessage}'
+                    android:textAlignment="center"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="18sp"
+                    tools:text="You scored 4 out of 5." />
+
+                <Button
+                    android:id="@+id/retakeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="@color/brand_primary"
+                    android:onClick='@{() -> viewModel.onRetakeQuiz()}'
+                    android:text="@string/take_new_quiz" />
+
+                <Button
+                    android:id="@+id/finishButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:backgroundTint="@color/text_secondary"
+                    android:onClick='@{() -> viewModel.onFinishRequested()}'
+                    android:text="@string/close_app" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</layout>

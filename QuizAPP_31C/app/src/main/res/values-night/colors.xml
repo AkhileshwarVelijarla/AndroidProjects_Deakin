@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FFF8FAFC</color>
+    <color name="white">#FF0F172A</color>
+    <color name="screen_background">#FF0F172A</color>
+    <color name="card_background">#FF1E293B</color>
+    <color name="brand_primary">#FF67E8F9</color>
+    <color name="text_secondary">#FFCBD5E1</color>
+    <color name="feedback_neutral">#FFE2E8F0</color>
+    <color name="feedback_correct">#FF22C55E</color>
+    <color name="feedback_incorrect">#FFF87171</color>
+    <color name="option_default">#FF334155</color>
+    <color name="option_selected">#FF164E63</color>
+</resources>
