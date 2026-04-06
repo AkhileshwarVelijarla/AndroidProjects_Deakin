@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categories">
+        <item>Currency</item>
+        <item>Fuel Efficiency</item>
+        <item>Liquid Volume</item>
+        <item>Distance</item>
+        <item>Temperature</item>
+    </string-array>
+</resources>
