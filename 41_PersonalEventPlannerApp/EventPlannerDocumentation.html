@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Event Planner App Documentation</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.55;
+            margin: 40px;
+            color: #1f2937;
+        }
+        h1, h2, h3 {
+            color: #0f172a;
+        }
+        h1 {
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 8px;
+        }
+        h2 {
+            margin-top: 28px;
+            border-left: 4px solid #2563eb;
+            padding-left: 10px;
+        }
+        code {
+            background: #eff6ff;
+            padding: 1px 4px;
+            border-radius: 4px;
+        }
+        ul, ol {
+            margin-top: 6px;
+        }
+        li {
+            margin: 4px 0;
+        }
+        .file {
+            margin-bottom: 14px;
+        }
+        .flow {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 14px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Personal Event Planner App Documentation</h1>
+
+    <h2>1. Project Overview</h2>
+    <p>
+        This Android application is a Personal Event Planner App built with MVVM architecture,
+        DataBinding, Room Database, Jetpack Navigation, Fragments, and Material components.
+        It allows users to create, view, update, and delete upcoming events while persisting
+        all data locally on the device.
+    </p>
+
+    <h2>2. Architecture Summary</h2>
+    <p>The project is divided into three major MVVM layers:</p>
+    <ul>
+        <li><strong>View</strong>: <code>MainActivity</code>, Fragments, XML layouts, RecyclerView adapter</li>
+        <li><strong>ViewModel</strong>: <code>EventViewModel</code> manages UI state, validation, and actions</li>
+        <li><strong>Model</strong>: Room classes including entity, DAO, database, and repository</li>
+    </ul>
+
+    <h2>3. Full Data Flow</h2>
+
+    <h3>Create Event Flow</h3>
+    <div class="flow">
+        <ol>
+            <li>User opens the Add Event screen from bottom navigation.</li>
+            <li>User enters Title, Category, Location, and picks Date/Time.</li>
+            <li>DataBinding updates the matching fields in <code>EventViewModel</code>.</li>
+            <li>User taps Save.</li>
+            <li><code>EventViewModel.saveEvent()</code> validates title and date rules.</li>
+            <li>If valid, the ViewModel creates an <code>EventEntity</code>.</li>
+            <li>The ViewModel calls <code>EventRepository.insert()</code>.</li>
+            <li>The repository calls <code>EventDao.insert()</code> on a background thread.</li>
+            <li>Room writes the event to the local SQLite database.</li>
+            <li><code>LiveData&lt;List&lt;EventEntity&gt;&gt;</code> emits the updated list.</li>
+            <li><code>EventListFragment</code> observes the new list and refreshes RecyclerView automatically.</li>
+        </ol>
+    </div>
+
+    <h3>Read Event Flow</h3>
+    <div class="flow">
+        <ol>
+            <li><code>EventDao.getAllEvents()</code> returns a <code>LiveData</code> list sorted by date ascending.</li>
+            <li>The repository exposes this list to the ViewModel.</li>
+            <li>The ViewModel exposes it to the fragment.</li>
+            <li><code>EventListFragment</code> observes the data.</li>
+            <li>Whenever the database changes, RecyclerView receives the new list and redraws.</li>
+        </ol>
+    </div>
+
+    <h3>Update Event Flow</h3>
+    <div class="flow">
+        <ol>
+            <li>User taps Edit on an event card.</li>
+            <li><code>EventListFragment</code> navigates to the Add/Edit screen with the event ID.</li>
+            <li><code>AddEditEventFragment</code> reads the ID from fragment arguments.</li>
+            <li><code>EventViewModel.prepareForm(eventId)</code> loads the event from Room.</li>
+            <li>The ViewModel pushes values into DataBinding fields.</li>
+            <li>User modifies details and taps Save.</li>
+            <li><code>saveEvent()</code> detects edit mode and calls <code>repository.update()</code>.</li>
+            <li>Room updates the row and the list UI refreshes through LiveData.</li>
+        </ol>
+    </div>
+
+    <h3>Delete Event Flow</h3>
+    <div class="flow">
+        <ol>
+            <li>User taps Delete on an event card.</li>
+            <li><code>EventListFragment</code> calls <code>viewModel.deleteEvent(event)</code>.</li>
+            <li>The repository calls <code>EventDao.delete()</code> on the database executor.</li>
+            <li>Room removes the row.</li>
+            <li>LiveData emits the reduced list.</li>
+            <li>The UI updates automatically and a Snackbar confirms deletion.</li>
+        </ol>
+    </div>
+
+    <h2>4. How Navigation Works</h2>
+    <p>
+        The app uses a single Activity and multiple Fragments. <code>MainActivity</code> hosts
+        a <code>NavHostFragment</code> and a <code>BottomNavigationView</code>. The navigation graph
+        defines two destinations:
+    </p>
+    <ul>
+        <li><code>eventListFragment</code> for the dashboard</li>
+        <li><code>addEventFragment</code> for add and edit operations</li>
+    </ul>
+    <p>
+        Because the bottom navigation menu IDs match the fragment destination IDs, the call to
+        <code>NavigationUI.setupWithNavController()</code> automatically connects the tabs to navigation.
+    </p>
+
+    <h2>5. How DataBinding Works</h2>
+    <p>
+        Layouts wrapped with a root <code>&lt;layout&gt;</code> tag generate binding classes such as
+        <code>ActivityMainBinding</code>, <code>FragmentEventListBinding</code>,
+        <code>FragmentAddEventBinding</code>, and <code>ItemEventBinding</code>.
+    </p>
+    <ol>
+        <li>Each layout declares a <code>viewModel</code> variable where required.</li>
+        <li>The fragment sets <code>binding.setViewModel(viewModel)</code>.</li>
+        <li>UI fields read from and write to <code>MutableLiveData</code> in the ViewModel.</li>
+        <li>Two-way binding keeps form fields synchronized with ViewModel state.</li>
+    </ol>
+
+    <h2>6. How Room Persistence Works</h2>
+    <p>
+        Room is the local persistence layer. The app stores events in a database table called
+        <code>events</code>. Since Room writes to SQLite on the device, the data remains available
+        after the app is closed or the device is restarted.
+    </p>
+    <ul>
+        <li><code>EventEntity</code> defines the table structure</li>
+        <li><code>EventDao</code> defines the database operations</li>
+        <li><code>EventDatabase</code> creates the Room database singleton</li>
+        <li><code>EventRepository</code> abstracts DAO access from the ViewModel</li>
+    </ul>
+
+    <h2>7. Validation and Error Handling</h2>
+    <p>The app applies validation in two layers:</p>
+    <ul>
+        <li><strong>UI prevention</strong>: the date picker blocks past dates with <code>setMinDate()</code></li>
+        <li><strong>Logic validation</strong>: <code>EventViewModel.saveEvent()</code> checks:
+            <ul>
+                <li>title is not empty</li>
+                <li>date/time is selected</li>
+                <li>selected date/time is not in the past</li>
+            </ul>
+        </li>
+    </ul>
+    <p>
+        Snackbar messages are used for validation errors, successful saves, updates, and deletions.
+    </p>
+
+    <h2>8. File-by-File Explanation</h2>
+
+    <div class="file">
+        <h3>Build and Configuration Files</h3>
+        <p><code>app/build.gradle.kts</code>: enables DataBinding and adds dependencies for Lifecycle, Navigation, RecyclerView, Material, and Room.</p>
+        <p><code>gradle/libs.versions.toml</code>: central dependency version catalog.</p>
+        <p><code>build.gradle.kts</code>: project-level Gradle configuration.</p>
+        <p><code>settings.gradle.kts</code>: repository setup and module inclusion.</p>
+    </div>
+
+    <div class="file">
+        <h3>Manifest and Entry Point</h3>
+        <p><code>AndroidManifest.xml</code>: declares the app, theme, and launcher activity.</p>
+        <p><code>MainActivity.java</code>: hosts navigation and connects bottom navigation with the nav controller.</p>
+        <p><code>activity_main.xml</code>: contains the <code>FragmentContainerView</code> and <code>BottomNavigationView</code>.</p>
+    </div>
+
+    <div class="file">
+        <h3>Navigation Resources</h3>
+        <p><code>nav_graph.xml</code>: defines the two fragments and the optional <code>eventId</code> argument.</p>
+        <p><code>bottom_nav_menu.xml</code>: bottom bar items for Event List and Add Event.</p>
+    </div>
+
+    <div class="file">
+        <h3>Room Data Layer</h3>
+        <p><code>EventEntity.java</code>: Room entity for one event row with title, category, location, and event date/time.</p>
+        <p><code>EventDao.java</code>: SQL access methods for insert, update, delete, query all, and query by ID.</p>
+        <p><code>EventDatabase.java</code>: singleton Room database and background executor.</p>
+        <p><code>EventRepository.java</code>: data access abstraction used by the ViewModel.</p>
+    </div>
+
+    <div class="file">
+        <h3>ViewModel</h3>
+        <p><code>EventViewModel.java</code>: main business logic file. It stores form state, event list state, edit mode state, validation logic, save/update/delete actions, empty-state flags, and one-time UI events.</p>
+    </div>
+
+    <div class="file">
+        <h3>UI Layer</h3>
+        <p><code>EventListFragment.java</code>: shows the dashboard, observes LiveData, handles edit/delete actions, and shows messages.</p>
+        <p><code>AddEditEventFragment.java</code>: handles add/edit form behavior, date and time pickers, save flow, clear flow, and post-save navigation.</p>
+        <p><code>EventAdapter.java</code>: RecyclerView adapter based on <code>ListAdapter</code> with <code>DiffUtil</code>.</p>
+        <p><code>item_event.xml</code>: layout for each event card.</p>
+        <p><code>fragment_event_list.xml</code>: dashboard screen layout using DataBinding.</p>
+        <p><code>fragment_add_event.xml</code>: add/edit form layout using DataBinding and two-way binding.</p>
+    </div>
+
+    <div class="file">
+        <h3>Utility Classes</h3>
+        <p><code>DateTimeFormatterUtil.java</code>: converts epoch milliseconds into user-friendly date/time text.</p>
+        <p><code>EventValidator.java</code>: reusable validation helper methods.</p>
+        <p><code>OneTimeEvent.java</code>: avoids repeating one-shot Snackbar events after re-observation.</p>
+    </div>
+
+    <div class="file">
+        <h3>Resources</h3>
+        <p><code>strings.xml</code>: user-facing text.</p>
+        <p><code>colors.xml</code>: app palette.</p>
+        <p><code>bottom_nav_colors.xml</code>: color selector for bottom nav states.</p>
+        <p><code>themes.xml</code> and <code>values-night/themes.xml</code>: app theme configuration.</p>
+        <p><code>category_chip_background.xml</code>: rounded chip drawable for the category label.</p>
+    </div>
+
+    <div class="file">
+        <h3>Testing</h3>
+        <p><code>EventValidatorTest.java</code>: unit tests for title and date validation logic.</p>
+    </div>
+
+    <h2>9. Why the Assignment Requirements Are Satisfied</h2>
+    <ul>
+        <li>CRUD is implemented through the list screen and add/edit screen.</li>
+        <li>Room is used for local persistence.</li>
+        <li>Jetpack Navigation with Fragments and Bottom Navigation is implemented.</li>
+        <li>Validation blocks empty title, missing date, and past dates.</li>
+        <li>Snackbar feedback is used for save, update, delete, and validation errors.</li>
+        <li>DataBinding and MVVM architecture are used throughout the app.</li>
+    </ul>
+
+    <h2>10. Short Viva Explanation</h2>
+    <p>
+        The app is built with single-activity MVVM architecture. <code>MainActivity</code> hosts a
+        navigation container and bottom navigation. <code>EventListFragment</code> displays all stored
+        events from Room through LiveData. <code>AddEditEventFragment</code> handles both creating and
+        updating events. The <code>EventViewModel</code> stores form state, applies validation, and
+        decides whether to insert or update records. The repository communicates with Room, and the UI
+        updates automatically whenever the database changes.
+    </p>
+</body>
+</html>
