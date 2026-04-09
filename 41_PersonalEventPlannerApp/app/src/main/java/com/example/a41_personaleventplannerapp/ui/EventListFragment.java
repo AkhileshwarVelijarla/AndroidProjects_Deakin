@@ -31,7 +31,6 @@ public class EventListFragment extends Fragment implements EventAdapter.EventAct
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentEventListBinding.inflate(inflater, container, false);
-        binding.setLifecycleOwner(getViewLifecycleOwner());
         return binding.getRoot();
     }
 
@@ -39,10 +38,12 @@ public class EventListFragment extends Fragment implements EventAdapter.EventAct
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
         binding.setViewModel(viewModel);
 
         adapter = new EventAdapter(this);
         binding.eventsRecyclerView.setAdapter(adapter);
+        viewModel.refreshEvents();
 
         viewModel.getAllEvents().observe(getViewLifecycleOwner(), events -> {
             adapter.submitList(events == null ? new ArrayList<>() : new ArrayList<>(events));
@@ -72,6 +73,14 @@ public class EventListFragment extends Fragment implements EventAdapter.EventAct
         String message = event.getContentIfNotHandled();
         if (message != null) {
             Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (viewModel != null) {
+            viewModel.refreshEvents();
         }
     }
 

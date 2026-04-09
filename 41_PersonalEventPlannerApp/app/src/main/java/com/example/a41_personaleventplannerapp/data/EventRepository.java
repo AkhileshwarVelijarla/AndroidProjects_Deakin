@@ -1,6 +1,8 @@
 package com.example.a41_personaleventplannerapp.data;
 
 import android.app.Application;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.lifecycle.LiveData;
 
@@ -14,6 +16,7 @@ public class EventRepository {
 
     private final EventDao eventDao;
     private final LiveData<List<EventEntity>> allEvents;
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     public EventRepository(Application application) {
         EventDatabase database = EventDatabase.getInstance(application);
@@ -26,7 +29,10 @@ public class EventRepository {
     }
 
     public void loadEvent(int eventId, EventCallback callback) {
-        EventDatabase.databaseWriteExecutor.execute(() -> callback.onEventLoaded(eventDao.getEventById(eventId)));
+        EventDatabase.databaseWriteExecutor.execute(() -> {
+            EventEntity event = eventDao.getEventById(eventId);
+            mainHandler.post(() -> callback.onEventLoaded(event));
+        });
     }
 
     public void insert(EventEntity event) {

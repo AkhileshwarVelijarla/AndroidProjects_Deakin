@@ -1,17 +1,36 @@
 <resources>
-    <string name="app_name">4.1_Personal Event Planner App</string>
+    <string name="app_name">Personal Event Planner App</string>
     <string name="events_tab">Event List</string>
     <string name="add_event_tab">Add Event</string>
     <string name="upcoming_events">Upcoming Events</string>
     <string name="dashboard_subtitle">Track plans, appointments, and trips in one place.</string>
     <string name="no_events_message">No events scheduled yet. Use Add Event to create your first plan.</string>
     <string name="event_form_subtitle">Enter the event details and save them locally on this device.</string>
+    <string name="add_event_header">Add Event</string>
+    <string name="edit_event_header">Edit Event</string>
     <string name="title_label">Title</string>
     <string name="category_label">Category</string>
     <string name="location_label">Location</string>
     <string name="date_time_label">Date and Time</string>
     <string name="save_button">Save Event</string>
+    <string name="update_button">Update Event</string>
     <string name="clear_button">Clear</string>
+    <string name="cancel_button">Cancel</string>
     <string name="edit_button">Edit</string>
     <string name="delete_button">Delete</string>
+    <string name="event_not_found_message">Event not found.</string>
+    <string name="event_saved_message">Event saved locally.</string>
+    <string name="event_updated_message">Event updated.</string>
+    <string name="event_deleted_message">Event deleted.</string>
+    <string name="validation_title_required">Title is required.</string>
+    <string name="validation_date_required">Date and time are required.</string>
+    <string name="validation_future_date">Please choose a future date and time.</string>
+
+    <string-array name="event_categories">
+        <item>Work</item>
+        <item>Social</item>
+        <item>Travel</item>
+        <item>Study</item>
+        <item>Personal</item>
+    </string-array>
 </resources>
