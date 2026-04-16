@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="sports_green">#1B5E20</color>
+    <color name="sports_green_dark">#0B3D1B</color>
+    <color name="sports_accent">#D32F2F</color>
+    <color name="sports_background">#F5F7FA</color>
+    <color name="sports_card">#FFFFFFFF</color>
+    <color name="sports_text">#1F2933</color>
+    <color name="sports_muted">#687385</color>
+    <color name="sports_chip">#E8F5E9</color>
+</resources>
