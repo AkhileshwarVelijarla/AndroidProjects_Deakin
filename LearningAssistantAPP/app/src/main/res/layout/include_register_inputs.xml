@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.LearningAssistant.InputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/registerUsernameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Register username input" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.LearningAssistant.InputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/registerEmailInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Register email input"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.LearningAssistant.InputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Confirm Email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/registerConfirmEmailInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Confirm email input"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.LearningAssistant.InputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Password"
+        app:endIconMode="password_toggle"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/registerPasswordInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Register password input"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.LearningAssistant.InputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Confirm Password"
+        app:endIconMode="password_toggle"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/registerConfirmPasswordInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Confirm password input"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.LearningAssistant.InputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Phone Number">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/registerPhoneInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Phone number input"
+            android:inputType="phone" />
+    </com.google.android.material.textfield.TextInputLayout>
+</LinearLayout>

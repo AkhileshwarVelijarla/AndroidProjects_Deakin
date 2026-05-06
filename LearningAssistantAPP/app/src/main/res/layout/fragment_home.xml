@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/homeHeroCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/card_white"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@color/accent_yellow_light"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_home_hero"
+                android:orientation="vertical"
+                android:padding="22dp">
+
+                <TextView
+                    android:id="@+id/homeHeroBadgeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge"
+                    android:paddingStart="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="6dp"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/homeGreetingText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:textAppearance="@style/Widget.LearningAssistant.ScreenTitle" />
+
+                <TextView
+                    android:id="@+id/homeInterestsSummaryText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="@style/Widget.LearningAssistant.Body" />
+
+                <TextView
+                    android:id="@+id/homeHistorySummaryText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textAppearance="@style/Widget.LearningAssistant.Body" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Learning Tasks"
+            android:textAppearance="@style/Widget.LearningAssistant.SectionTitle" />
+
+        <LinearLayout
+            android:id="@+id/taskContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/homeUtilitiesCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:cardBackgroundColor="@color/card_white"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Learning Utilities"
+                    android:textAppearance="@style/Widget.LearningAssistant.SectionTitle" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/startAssessmentButton"
+                    style="@style/Widget.LearningAssistant.PrimaryButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="Start assessment button"
+                    android:text="Start Assessment" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/lessonSummaryButton"
+                    style="@style/Widget.LearningAssistant.SecondaryButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:contentDescription="Lesson summary button"
+                    android:text="Generate Lesson Summary" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/flashcardsButton"
+                    style="@style/Widget.LearningAssistant.SecondaryButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:contentDescription="Flashcards button"
+                    android:text="Flashcards" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/studyPlanButton"
+                    style="@style/Widget.LearningAssistant.SecondaryButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:contentDescription="7 day study plan button"
+                    android:text="7-Day Study Plan" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/homeSimulateFailureCheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Simulate API failure"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <include layout="@layout/include_lesson_summary_panel" />
+        <include layout="@layout/include_flashcards_panel" />
+        <include layout="@layout/include_study_plan_panel" />
+    </LinearLayout>
+</ScrollView>

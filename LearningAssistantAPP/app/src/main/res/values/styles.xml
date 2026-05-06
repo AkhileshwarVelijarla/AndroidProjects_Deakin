@@ -1,0 +1,41 @@
+<resources>
+    <style name="Widget.LearningAssistant.ScreenTitle" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.LearningAssistant.SectionTitle" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.LearningAssistant.Body" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="Widget.LearningAssistant.PrimaryButton" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/accent_yellow</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="rippleColor">@color/accent_yellow_light</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+    </style>
+
+    <style name="Widget.LearningAssistant.SecondaryButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="backgroundTint">@color/button_secondary_bg</item>
+        <item name="strokeColor">@color/accent_yellow</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="rippleColor">@color/accent_yellow_light</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+    </style>
+
+    <style name="Widget.LearningAssistant.InputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/input_background</item>
+        <item name="boxStrokeColor">@color/accent_yellow</item>
+        <item name="hintTextColor">@color/text_secondary</item>
+        <item name="android:textColorHint">@color/text_secondary</item>
+    </style>
+</resources>

@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.istreampersonalvideoplaylistapp_51c"
+    namespace = "com.example.lostandfound"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.istreampersonalvideoplaylistapp_51c"
+        applicationId = "com.example.lostandfound"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -29,18 +29,12 @@ android {
             )
         }
     }
-    sourceSets {
-        getByName("main") {
-            java.directories.clear()
-            java.directories.add("src/main/kotlin")
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
     buildFeatures {
-        viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -49,12 +43,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation(libs.fragment)
+    implementation(libs.recyclerview)
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.lifecycle.livedata)
-    implementation(libs.recyclerview)
-    implementation(libs.room.runtime)
-    annotationProcessor(libs.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
