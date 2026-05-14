@@ -1,0 +1,189 @@
+> Task :app:clean UP-TO-DATE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:dataBindingMergeDependencyArtifactsDebug
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:processDebugNavigationResources
+> Task :app:parseDebugLocalResources
+> Task :app:mergeDebugResources
+> Task :app:javaPreCompileDebug
+> Task :app:dataBindingGenBaseClassesDebug
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:generateDebugRFile
+> Task :app:mergeDebugAssets
+> Task :app:compileDebugKotlin NO-SOURCE
+
+> Task :app:compileDebugJavaWithJavac
+Note: /Users/akhilesh/Android_Deakin/SIT708_Task8_1C_ChatBot/app/src/main/java/com/example/sit708_task8_1c_chatbot/ui/view/ChatActivity.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :app:compressDebugAssets
+> Task :app:generateDebugGlobalSynthetics
+> Task :app:processDebugJavaRes
+> Task :app:desugarDebugFileDependencies
+> Task :app:checkDebugDuplicateClasses
+> Task :app:checkDebugAarMetadata
+> Task :app:mergeDebugJavaResource
+> Task :app:mergeExtDexDebug
+> Task :app:mapDebugSourceSetPaths
+> Task :app:mergeLibDexDebug
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:compileDebugNavigationResources
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:validateSigningDebug
+> Task :app:writeDebugAppMetadata
+> Task :app:writeDebugSigningConfigVersions
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:mergeReleaseJniLibFolders
+> Task :app:mergeReleaseNativeLibs NO-SOURCE
+> Task :app:stripReleaseDebugSymbols NO-SOURCE
+> Task :app:extractReleaseNativeSymbolTables NO-SOURCE
+> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+> Task :app:processDebugManifestForPackage
+> Task :app:checkReleaseDuplicateClasses
+> Task :app:dataBindingMergeDependencyArtifactsRelease
+> Task :app:generateReleaseResources
+> Task :app:packageReleaseResources
+> Task :app:processDebugResources
+> Task :app:processReleaseNavigationResources
+> Task :app:dexBuilderDebug
+> Task :app:mapReleaseSourceSetPaths
+> Task :app:parseReleaseLocalResources
+> Task :app:compileReleaseNavigationResources
+> Task :app:checkReleaseAarMetadata
+> Task :app:javaPreCompileRelease
+> Task :app:createReleaseCompatibleScreenManifests
+> Task :app:generateReleaseRFile
+> Task :app:extractDeepLinksRelease
+> Task :app:processReleaseMainManifest
+> Task :app:processReleaseManifest
+> Task :app:mergeProjectDexDebug
+> Task :app:desugarReleaseFileDependencies
+> Task :app:mergeReleaseStartupProfile
+> Task :app:mergeReleaseResources
+> Task :app:processReleaseManifestForPackage
+> Task :app:mergeExtDexRelease
+> Task :app:dataBindingGenBaseClassesRelease
+> Task :app:compileReleaseKotlin NO-SOURCE
+
+> Task :app:compileReleaseJavaWithJavac
+Note: /Users/akhilesh/Android_Deakin/SIT708_Task8_1C_ChatBot/app/src/main/java/com/example/sit708_task8_1c_chatbot/ui/view/ChatActivity.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :app:mergeReleaseAssets
+> Task :app:mergeReleaseArtProfile
+> Task :app:compressReleaseAssets
+> Task :app:extractReleaseVersionControlInfo
+> Task :app:extractProguardFiles
+> Task :app:generateReleaseLintVitalReportModel
+> Task :app:processReleaseJavaRes
+> Task :app:collectReleaseDependencies
+> Task :app:sdkReleaseDependencyData
+> Task :app:writeReleaseAppMetadata
+> Task :app:writeReleaseSigningConfigVersions
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:generateDebugLintReportModel
+> Task :app:generateDebugAndroidTestLintModel
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:mergeReleaseJavaResource
+> Task :app:generateDebugUnitTestLintModel
+> Task :app:compileDebugUnitTestKotlin NO-SOURCE
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:processDebugUnitTestJavaRes NO-SOURCE
+> Task :app:javaPreCompileDebugUnitTest
+> Task :app:compileDebugUnitTestJavaWithJavac
+> Task :app:processReleaseResources
+> Task :app:testDebugUnitTest
+> Task :app:dexBuilderRelease
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+> Task :app:mergeReleaseGlobalSynthetics
+> Task :app:test
+> Task :app:optimizeReleaseResources
+> Task :app:lintVitalAnalyzeRelease
+> Task :app:lintAnalyzeDebugAndroidTest
+> Task :app:mergeDexRelease
+> Task :app:lintAnalyzeDebugUnitTest
+> Task :app:compileReleaseArtProfile
+> Task :app:lintVitalReportRelease SKIPPED
+> Task :app:lintVitalRelease SKIPPED
+> Task :app:packageRelease
+> Task :app:createReleaseApkListingFileRedirect
+> Task :app:assembleRelease
+> Task :app:assemble
+> Task :app:lintAnalyzeDebug
+
+> Task :app:lintReportDebug
+Wrote HTML report to file:///Users/akhilesh/Android_Deakin/SIT708_Task8_1C_ChatBot/app/build/reports/lint-results-debug.html
+Lint found 2 errors and 28 warnings. First failure:
+/Users/akhilesh/Android_Deakin/SIT708_Task8_1C_ChatBot/app/src/main/java/com/example/sit708_task8_1c_chatbot/ui/view/ChatActivity.java:101: Error: Overriding method should call super.onBackPressed [MissingSuperCall]
+    public void onBackPressed() {
+                ~~~~~~~~~~~~~
+
+
+> Task :app:lintDebug FAILED
+Lint found 2 errors, 28 warnings. First failure:
+
+/Users/akhilesh/Android_Deakin/SIT708_Task8_1C_ChatBot/app/src/main/java/com/example/sit708_task8_1c_chatbot/ui/view/ChatActivity.java:101: Error: Overriding method should call super.onBackPressed [MissingSuperCall]
+    public void onBackPressed() {
+                ~~~~~~~~~~~~~
+
+   Explanation for issues of type "MissingSuperCall":
+   Some methods, such as View#onDetachedFromWindow, require that you also call
+   the super implementation as part of your method.
+
+
+The full lint text report is located at:
+  /Users/akhilesh/Android_Deakin/SIT708_Task8_1C_ChatBot/app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
+
+[Incubating] Problems report is available at: file:///Users/akhilesh/Android_Deakin/SIT708_Task8_1C_ChatBot/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:lintDebug'.
+> Lint found errors in the project; aborting build.
+  
+  Fix the issues identified by lint, or create a baseline to see only new errors.
+  To create a baseline, run `gradlew updateLintBaseline` after adding the following to the module's build.gradle file:
+  ```
+  android {
+      lint {
+          baseline = file("lint-baseline.xml")
+      }
+  }
+  ```
+  For more details, see https://developer.android.com/studio/write/lint#snapshot
+  
+  Lint found 2 errors, 28 warnings. First failure:
+  
+  /Users/akhilesh/Android_Deakin/SIT708_Task8_1C_ChatBot/app/src/main/java/com/example/sit708_task8_1c_chatbot/ui/view/ChatActivity.java:101: Error: Overriding method should call super.onBackPressed [MissingSuperCall]
+      public void onBackPressed() {
+                  ~~~~~~~~~~~~~
+  
+     Explanation for issues of type "MissingSuperCall":
+     Some methods, such as View#onDetachedFromWindow, require that you also call
+     the super implementation as part of your method.
+  
+  
+  The full lint text report is located at:
+    /Users/akhilesh/Android_Deakin/SIT708_Task8_1C_ChatBot/app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 2m 36s
+94 actionable tasks: 93 executed, 1 up-to-date

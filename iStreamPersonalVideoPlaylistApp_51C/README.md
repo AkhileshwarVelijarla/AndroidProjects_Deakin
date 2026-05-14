@@ -28,7 +28,7 @@ iStream is an Android app for saving and playing personal YouTube video playlist
 iStreamPersonalVideoPlaylistApp_51C/
 ├── app/
 │   └── src/main/
-│       ├── java/com/example/istreampersonalvideoplaylistapp_51c/
+│       ├── kotlin/com/example/istreampersonalvideoplaylistapp_51c/
 │       │   ├── adapter/        # RecyclerView adapter for playlist items
 │       │   ├── data/           # Room database and DAO classes
 │       │   ├── model/          # Room entity models

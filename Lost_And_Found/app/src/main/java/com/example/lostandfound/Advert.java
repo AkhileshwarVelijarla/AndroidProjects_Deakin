@@ -10,6 +10,8 @@ public class Advert {
     private String location;
     private String category;
     private String imageUri;
+    private double latitude;
+    private double longitude;
     private long createdTimestamp;
 
     public Advert() {
@@ -17,7 +19,7 @@ public class Advert {
 
     public Advert(int id, String postType, String name, String phone, String description,
                   String dateText, String location, String category, String imageUri,
-                  long createdTimestamp) {
+                  double latitude, double longitude, long createdTimestamp) {
         this.id = id;
         this.postType = postType;
         this.name = name;
@@ -27,6 +29,8 @@ public class Advert {
         this.location = location;
         this.category = category;
         this.imageUri = imageUri;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.createdTimestamp = createdTimestamp;
     }
 
@@ -100,6 +104,26 @@ public class Advert {
 
     public void setImageUri(String imageUri) {
         this.imageUri = imageUri;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public boolean hasCoordinates() {
+        return latitude != 0 || longitude != 0;
     }
 
     public long getCreatedTimestamp() {

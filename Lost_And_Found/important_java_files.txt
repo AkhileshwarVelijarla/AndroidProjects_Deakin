@@ -1,0 +1,810 @@
+================================================================
+LOST AND FOUND APP - IMPORTANT JAVA FILES
+Combined into one text file for review/submission
+================================================================
+
+
+/* ================================================================
+   FILE: app/src/main/java/com/example/lostandfound/MainActivity.java
+   PURPOSE: Home screen and navigation entry point
+   ================================================================ */
+
+package com.example.lostandfound;
+
+import android.content.Intent;
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
+import com.example.lostandfound.databinding.ActivityMainBinding;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.createAdvertButton.setOnClickListener(v ->
+                startActivity(new Intent(this, CreateAdvertActivity.class)));
+        binding.showItemsButton.setOnClickListener(v ->
+                startActivity(new Intent(this, ItemListActivity.class)));
+    }
+}
+
+
+/* ================================================================
+   FILE: app/src/main/java/com/example/lostandfound/Advert.java
+   PURPOSE: Model class for one lost/found advert
+   ================================================================ */
+
+package com.example.lostandfound;
+
+public class Advert {
+    private int id;
+    private String postType;
+    private String name;
+    private String phone;
+    private String description;
+    private String dateText;
+    private String location;
+    private String category;
+    private String imageUri;
+    private long createdTimestamp;
+
+    public Advert() {
+    }
+
+    public Advert(int id, String postType, String name, String phone, String description,
+                  String dateText, String location, String category, String imageUri,
+                  long createdTimestamp) {
+        this.id = id;
+        this.postType = postType;
+        this.name = name;
+        this.phone = phone;
+        this.description = description;
+        this.dateText = dateText;
+        this.location = location;
+        this.category = category;
+        this.imageUri = imageUri;
+        this.createdTimestamp = createdTimestamp;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPostType() {
+        return postType;
+    }
+
+    public void setPostType(String postType) {
+        this.postType = postType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDateText() {
+        return dateText;
+    }
+
+    public void setDateText(String dateText) {
+        this.dateText = dateText;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getImageUri() {
+        return imageUri;
+    }
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
+    }
+
+    public long getCreatedTimestamp() {
+        return createdTimestamp;
+    }
+
+    public void setCreatedTimestamp(long createdTimestamp) {
+        this.createdTimestamp = createdTimestamp;
+    }
+}
+
+
+/* ================================================================
+   FILE: app/src/main/java/com/example/lostandfound/AdvertDatabaseHelper.java
+   PURPOSE: SQLite database creation and CRUD operations
+   ================================================================ */
+
+package com.example.lostandfound;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class AdvertDatabaseHelper extends SQLiteOpenHelper {
+    private static final String DATABASE_NAME = "lost_found.db";
+    private static final int DATABASE_VERSION = 1;
+
+    static final String TABLE_NAME = "adverts";
+    private static final String COL_ID = "id";
+    private static final String COL_POST_TYPE = "post_type";
+    private static final String COL_NAME = "name";
+    private static final String COL_PHONE = "phone";
+    private static final String COL_DESCRIPTION = "description";
+    private static final String COL_DATE_TEXT = "date_text";
+    private static final String COL_LOCATION = "location";
+    private static final String COL_CATEGORY = "category";
+    private static final String COL_IMAGE_URI = "image_uri";
+    private static final String COL_CREATED_TIMESTAMP = "created_timestamp";
+
+    public AdvertDatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " ("
+                + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_POST_TYPE + " TEXT NOT NULL, "
+                + COL_NAME + " TEXT NOT NULL, "
+                + COL_PHONE + " TEXT NOT NULL, "
+                + COL_DESCRIPTION + " TEXT NOT NULL, "
+                + COL_DATE_TEXT + " TEXT NOT NULL, "
+                + COL_LOCATION + " TEXT NOT NULL, "
+                + COL_CATEGORY + " TEXT NOT NULL, "
+                + COL_IMAGE_URI + " TEXT NOT NULL, "
+                + COL_CREATED_TIMESTAMP + " INTEGER NOT NULL)");
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
+    }
+
+    public long insertItem(Advert advert) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_POST_TYPE, advert.getPostType());
+        values.put(COL_NAME, advert.getName());
+        values.put(COL_PHONE, advert.getPhone());
+        values.put(COL_DESCRIPTION, advert.getDescription());
+        values.put(COL_DATE_TEXT, advert.getDateText());
+        values.put(COL_LOCATION, advert.getLocation());
+        values.put(COL_CATEGORY, advert.getCategory());
+        values.put(COL_IMAGE_URI, advert.getImageUri());
+        values.put(COL_CREATED_TIMESTAMP, advert.getCreatedTimestamp());
+        return db.insert(TABLE_NAME, null, values);
+    }
+
+    public List<Advert> getAllItems() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null,
+                COL_CREATED_TIMESTAMP + " DESC");
+        return readItems(cursor);
+    }
+
+    public List<Advert> getItemsByCategory(String category) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, COL_CATEGORY + " = ?",
+                new String[]{category}, null, null, COL_CREATED_TIMESTAMP + " DESC");
+        return readItems(cursor);
+    }
+
+    public Advert getItemById(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, COL_ID + " = ?",
+                new String[]{String.valueOf(id)}, null, null, null);
+        try {
+            if (cursor.moveToFirst()) {
+                return readItem(cursor);
+            }
+            return null;
+        } finally {
+            cursor.close();
+        }
+    }
+
+    public int deleteItem(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        return db.delete(TABLE_NAME, COL_ID + " = ?", new String[]{String.valueOf(id)});
+    }
+
+    private List<Advert> readItems(Cursor cursor) {
+        List<Advert> items = new ArrayList<>();
+        try {
+            while (cursor.moveToNext()) {
+                items.add(readItem(cursor));
+            }
+        } finally {
+            cursor.close();
+        }
+        return items;
+    }
+
+    private Advert readItem(Cursor cursor) {
+        return new Advert(
+                cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COL_POST_TYPE)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COL_NAME)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COL_PHONE)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COL_DESCRIPTION)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COL_DATE_TEXT)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COL_LOCATION)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COL_CATEGORY)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COL_IMAGE_URI)),
+                cursor.getLong(cursor.getColumnIndexOrThrow(COL_CREATED_TIMESTAMP))
+        );
+    }
+}
+
+
+/* ================================================================
+   FILE: app/src/main/java/com/example/lostandfound/AdvertRepository.java
+   PURPOSE: Repository wrapper around database helper
+   ================================================================ */
+
+package com.example.lostandfound;
+
+import android.content.Context;
+
+import java.util.List;
+
+public class AdvertRepository {
+    private final AdvertDatabaseHelper databaseHelper;
+
+    public AdvertRepository(Context context) {
+        databaseHelper = new AdvertDatabaseHelper(context.getApplicationContext());
+    }
+
+    public long insertItem(Advert advert) {
+        return databaseHelper.insertItem(advert);
+    }
+
+    public List<Advert> getAllItems() {
+        return databaseHelper.getAllItems();
+    }
+
+    public List<Advert> getItemsByCategory(String category) {
+        if (category == null || category.equals("All")) {
+            return getAllItems();
+        }
+        return databaseHelper.getItemsByCategory(category);
+    }
+
+    public Advert getItemById(int id) {
+        return databaseHelper.getItemById(id);
+    }
+
+    public boolean deleteItem(int id) {
+        return databaseHelper.deleteItem(id) > 0;
+    }
+}
+
+
+/* ================================================================
+   FILE: app/src/main/java/com/example/lostandfound/CreateAdvertActivity.java
+   PURPOSE: Form screen for creating a new advert
+   ================================================================ */
+
+package com.example.lostandfound;
+
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.lostandfound.databinding.ActivityCreateAdvertBinding;
+
+import java.util.Calendar;
+import java.util.Locale;
+
+public class CreateAdvertActivity extends AppCompatActivity {
+    private ActivityCreateAdvertBinding binding;
+    private CreateAdvertViewModel viewModel;
+    private ActivityResultLauncher<String[]> imagePicker;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_create_advert);
+        viewModel = new ViewModelProvider(this).get(CreateAdvertViewModel.class);
+        binding.setVm(viewModel);
+        binding.setLifecycleOwner(this);
+
+        setupSpinner();
+        setupImagePicker();
+
+        binding.dateEditText.setOnClickListener(v -> showDatePicker());
+        binding.selectImageButton.setOnClickListener(v -> imagePicker.launch(new String[]{"image/*"}));
+        binding.saveButton.setOnClickListener(v -> saveAdvert());
+    }
+
+    private void setupSpinner() {
+        String[] categories = {"Electronics", "Pets", "Wallets", "Keys", "Bags", "Documents", "Others"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, categories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.categorySpinner.setAdapter(adapter);
+    }
+
+    private void setupImagePicker() {
+        imagePicker = registerForActivityResult(new ActivityResultContracts.OpenDocument(), uri -> {
+            if (uri != null) {
+                getContentResolver().takePersistableUriPermission(uri,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                viewModel.imageUri.setValue(uri.toString());
+            }
+        });
+    }
+
+    private void showDatePicker() {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            showTimePicker(year, month, dayOfMonth);
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+
+    private void showTimePicker(int year, int month, int dayOfMonth) {
+        Calendar calendar = Calendar.getInstance();
+        TimePickerDialog dialog = new TimePickerDialog(this, (view, hourOfDay, minute) -> {
+            String dateTime = String.format(Locale.getDefault(),
+                    "%02d/%02d/%04d %02d:%02d",
+                    dayOfMonth, month + 1, year, hourOfDay, minute);
+            viewModel.dateText.setValue(dateTime);
+        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+        dialog.show();
+    }
+
+    private void saveAdvert() {
+        String postType = null;
+        if (binding.lostRadioButton.isChecked()) {
+            postType = "Lost";
+        } else if (binding.foundRadioButton.isChecked()) {
+            postType = "Found";
+        }
+        String category = binding.categorySpinner.getSelectedItem().toString();
+        boolean saved = viewModel.saveAdvert(postType, category);
+        if (saved) {
+            Toast.makeText(this, "Advert saved", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, ItemListActivity.class));
+            finish();
+        } else {
+            Toast.makeText(this, viewModel.errorMessage.getValue(), Toast.LENGTH_SHORT).show();
+        }
+    }
+}
+
+
+/* ================================================================
+   FILE: app/src/main/java/com/example/lostandfound/CreateAdvertViewModel.java
+   PURPOSE: Validation and save logic for new adverts
+   ================================================================ */
+
+package com.example.lostandfound;
+
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
+
+public class CreateAdvertViewModel extends AndroidViewModel {
+    public final MutableLiveData<String> name = new MutableLiveData<>("");
+    public final MutableLiveData<String> phone = new MutableLiveData<>("");
+    public final MutableLiveData<String> description = new MutableLiveData<>("");
+    public final MutableLiveData<String> dateText = new MutableLiveData<>("");
+    public final MutableLiveData<String> location = new MutableLiveData<>("");
+    public final MutableLiveData<String> imageUri = new MutableLiveData<>("");
+    public final MutableLiveData<String> errorMessage = new MutableLiveData<>("");
+
+    private final AdvertRepository repository;
+
+    public CreateAdvertViewModel(@NonNull Application application) {
+        super(application);
+        repository = new AdvertRepository(application);
+    }
+
+    public boolean saveAdvert(String postType, String category) {
+        String image = clean(imageUri.getValue());
+        if (isEmpty(postType)) {
+            errorMessage.setValue("Please select whether the advert is Lost or Found.");
+            return false;
+        }
+        if (isEmpty(name.getValue()) || isEmpty(phone.getValue())
+                || isEmpty(description.getValue()) || isEmpty(dateText.getValue())
+                || isEmpty(location.getValue()) || isEmpty(category) || isEmpty(image)) {
+            errorMessage.setValue("Please complete all fields, including date/time and image.");
+            return false;
+        }
+
+        Advert advert = new Advert();
+        advert.setPostType(postType);
+        advert.setName(clean(name.getValue()));
+        advert.setPhone(clean(phone.getValue()));
+        advert.setDescription(clean(description.getValue()));
+        advert.setDateText(clean(dateText.getValue()));
+        advert.setLocation(clean(location.getValue()));
+        advert.setCategory(category);
+        advert.setImageUri(image);
+        advert.setCreatedTimestamp(System.currentTimeMillis());
+        return repository.insertItem(advert) > 0;
+    }
+
+    private boolean isEmpty(String value) {
+        return value == null || value.trim().isEmpty();
+    }
+
+    private String clean(String value) {
+        return value == null ? "" : value.trim();
+    }
+}
+
+
+/* ================================================================
+   FILE: app/src/main/java/com/example/lostandfound/ItemListActivity.java
+   PURPOSE: List screen for showing all adverts and category filter
+   ================================================================ */
+
+package com.example.lostandfound;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.example.lostandfound.databinding.ActivityItemListBinding;
+
+public class ItemListActivity extends AppCompatActivity {
+    private ActivityItemListBinding binding;
+    private ItemListViewModel viewModel;
+    private AdvertAdapter adapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_item_list);
+        viewModel = new ViewModelProvider(this).get(ItemListViewModel.class);
+        binding.setVm(viewModel);
+        binding.setLifecycleOwner(this);
+
+        setupSpinner();
+        setupRecyclerView();
+
+        viewModel.items.observe(this, adverts -> {
+            adapter.setAdverts(adverts);
+            binding.emptyTextView.setVisibility(adverts == null || adverts.isEmpty()
+                    ? View.VISIBLE : View.GONE);
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.loadItems();
+    }
+
+    private void setupSpinner() {
+        String[] categories = {"All", "Electronics", "Pets", "Wallets", "Keys", "Bags", "Documents", "Others"};
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, categories);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.filterSpinner.setAdapter(spinnerAdapter);
+        binding.applyFilterButton.setOnClickListener(v ->
+                viewModel.setCategory(binding.filterSpinner.getSelectedItem().toString()));
+    }
+
+    private void setupRecyclerView() {
+        adapter = new AdvertAdapter(advert -> {
+            Intent intent = new Intent(this, ItemDetailActivity.class);
+            intent.putExtra(ItemDetailActivity.EXTRA_ADVERT_ID, advert.getId());
+            startActivity(intent);
+        });
+        binding.itemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.itemsRecyclerView.setAdapter(adapter);
+    }
+}
+
+
+/* ================================================================
+   FILE: app/src/main/java/com/example/lostandfound/ItemListViewModel.java
+   PURPOSE: ViewModel for loading and filtering adverts
+   ================================================================ */
+
+package com.example.lostandfound;
+
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
+
+import java.util.List;
+
+public class ItemListViewModel extends AndroidViewModel {
+    public final MutableLiveData<List<Advert>> items = new MutableLiveData<>();
+    public final MutableLiveData<String> selectedCategory = new MutableLiveData<>("All");
+
+    private final AdvertRepository repository;
+
+    public ItemListViewModel(@NonNull Application application) {
+        super(application);
+        repository = new AdvertRepository(application);
+    }
+
+    public void loadItems() {
+        items.setValue(repository.getItemsByCategory(selectedCategory.getValue()));
+    }
+
+    public void setCategory(String category) {
+        selectedCategory.setValue(category);
+        loadItems();
+    }
+}
+
+
+/* ================================================================
+   FILE: app/src/main/java/com/example/lostandfound/AdvertAdapter.java
+   PURPOSE: RecyclerView adapter for advert list items
+   ================================================================ */
+
+package com.example.lostandfound;
+
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.lostandfound.databinding.ItemAdvertBinding;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class AdvertAdapter extends RecyclerView.Adapter<AdvertAdapter.AdvertViewHolder> {
+    public interface OnAdvertClickListener {
+        void onAdvertClick(Advert advert);
+    }
+
+    private final List<Advert> adverts = new ArrayList<>();
+    private final OnAdvertClickListener listener;
+
+    public AdvertAdapter(OnAdvertClickListener listener) {
+        this.listener = listener;
+    }
+
+    @NonNull
+    @Override
+    public AdvertViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        ItemAdvertBinding binding = ItemAdvertBinding.inflate(inflater, parent, false);
+        return new AdvertViewHolder(binding);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull AdvertViewHolder holder, int position) {
+        holder.bind(adverts.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return adverts.size();
+    }
+
+    public void setAdverts(List<Advert> newAdverts) {
+        adverts.clear();
+        if (newAdverts != null) {
+            adverts.addAll(newAdverts);
+        }
+        notifyDataSetChanged();
+    }
+
+    class AdvertViewHolder extends RecyclerView.ViewHolder {
+        private final ItemAdvertBinding binding;
+
+        AdvertViewHolder(ItemAdvertBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        void bind(Advert advert) {
+            binding.setAdvert(advert);
+            binding.getRoot().setOnClickListener(v -> listener.onAdvertClick(advert));
+            binding.executePendingBindings();
+        }
+    }
+}
+
+
+/* ================================================================
+   FILE: app/src/main/java/com/example/lostandfound/ItemDetailActivity.java
+   PURPOSE: Detail screen and remove advert action
+   ================================================================ */
+
+package com.example.lostandfound;
+
+import android.os.Bundle;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.lostandfound.databinding.ActivityItemDetailBinding;
+
+public class ItemDetailActivity extends AppCompatActivity {
+    public static final String EXTRA_ADVERT_ID = "advert_id";
+
+    private ActivityItemDetailBinding binding;
+    private ItemDetailViewModel viewModel;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_item_detail);
+        viewModel = new ViewModelProvider(this).get(ItemDetailViewModel.class);
+        binding.setVm(viewModel);
+        binding.setLifecycleOwner(this);
+
+        int advertId = getIntent().getIntExtra(EXTRA_ADVERT_ID, -1);
+        if (advertId == -1) {
+            finish();
+            return;
+        }
+
+        viewModel.loadItem(advertId);
+        binding.removeButton.setOnClickListener(v -> confirmRemove());
+    }
+
+    private void confirmRemove() {
+        new AlertDialog.Builder(this)
+                .setTitle("Remove advert")
+                .setMessage("Remove this advert because the item is resolved?")
+                .setPositiveButton("Remove", (dialog, which) -> {
+                    if (viewModel.deleteItem()) {
+                        Toast.makeText(this, "Advert removed", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(this, "Could not remove advert", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+}
+
+
+/* ================================================================
+   FILE: app/src/main/java/com/example/lostandfound/ItemDetailViewModel.java
+   PURPOSE: ViewModel for one selected advert
+   ================================================================ */
+
+package com.example.lostandfound;
+
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
+
+public class ItemDetailViewModel extends AndroidViewModel {
+    public final MutableLiveData<Advert> advert = new MutableLiveData<>();
+
+    private final AdvertRepository repository;
+    private int advertId;
+
+    public ItemDetailViewModel(@NonNull Application application) {
+        super(application);
+        repository = new AdvertRepository(application);
+    }
+
+    public void loadItem(int id) {
+        advertId = id;
+        advert.setValue(repository.getItemById(id));
+    }
+
+    public boolean deleteItem() {
+        return repository.deleteItem(advertId);
+    }
+}
+
+
+/* ================================================================
+   FILE: app/src/main/java/com/example/lostandfound/BindingAdapters.java
+   PURPOSE: Data binding helpers for images and timestamps
+   ================================================================ */
+
+package com.example.lostandfound;
+
+import android.net.Uri;
+import android.text.format.DateFormat;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.databinding.BindingAdapter;
+
+import java.util.Date;
+
+public class BindingAdapters {
+    @BindingAdapter("imageUri")
+    public static void setImageUri(ImageView imageView, String imageUri) {
+        if (imageUri == null || imageUri.trim().isEmpty()) {
+            imageView.setImageResource(android.R.drawable.ic_menu_gallery);
+        } else {
+            imageView.setImageURI(Uri.parse(imageUri));
+        }
+    }
+
+    @BindingAdapter("postedTime")
+    public static void setPostedTime(TextView textView, long timestamp) {
+        if (timestamp == 0) {
+            textView.setText("");
+        } else {
+            String text = DateFormat.format("dd/MM/yyyy hh:mm a", new Date(timestamp)).toString();
+            textView.setText("Posted at: " + text);
+        }
+    }
+}

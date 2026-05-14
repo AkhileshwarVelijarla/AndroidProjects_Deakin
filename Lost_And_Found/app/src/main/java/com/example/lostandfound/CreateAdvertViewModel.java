@@ -14,6 +14,8 @@ public class CreateAdvertViewModel extends AndroidViewModel {
     public final MutableLiveData<String> location = new MutableLiveData<>("");
     public final MutableLiveData<String> imageUri = new MutableLiveData<>("");
     public final MutableLiveData<String> errorMessage = new MutableLiveData<>("");
+    public double selectedLatitude;
+    public double selectedLongitude;
 
     private final AdvertRepository repository;
 
@@ -23,18 +25,16 @@ public class CreateAdvertViewModel extends AndroidViewModel {
     }
 
     public boolean saveAdvert(String postType, String category) {
-        String image = clean(imageUri.getValue());
         if (isEmpty(postType)) {
             errorMessage.setValue("Please select whether the advert is Lost or Found.");
             return false;
         }
         if (isEmpty(name.getValue()) || isEmpty(phone.getValue())
                 || isEmpty(description.getValue()) || isEmpty(dateText.getValue())
-                || isEmpty(location.getValue()) || isEmpty(category) || isEmpty(image)) {
-            errorMessage.setValue("Please complete all fields, including date/time and image.");
+                || isEmpty(location.getValue()) || isEmpty(category)) {
+            errorMessage.setValue("Please complete all advert fields.");
             return false;
         }
-
         Advert advert = new Advert();
         advert.setPostType(postType);
         advert.setName(clean(name.getValue()));
@@ -43,9 +43,17 @@ public class CreateAdvertViewModel extends AndroidViewModel {
         advert.setDateText(clean(dateText.getValue()));
         advert.setLocation(clean(location.getValue()));
         advert.setCategory(category);
-        advert.setImageUri(image);
+        advert.setImageUri(clean(imageUri.getValue()));
+        advert.setLatitude(selectedLatitude);
+        advert.setLongitude(selectedLongitude);
         advert.setCreatedTimestamp(System.currentTimeMillis());
         return repository.insertItem(advert) > 0;
+    }
+
+    public void setSelectedLocation(String locationText, double latitude, double longitude) {
+        location.setValue(clean(locationText));
+        selectedLatitude = latitude;
+        selectedLongitude = longitude;
     }
 
     private boolean isEmpty(String value) {

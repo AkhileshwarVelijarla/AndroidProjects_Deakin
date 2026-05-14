@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- Blue Gradient Colors -->
+    <color name="primary_blue">#1E88E5</color>
+    <color name="primary_blue_dark">#1565C0</color>
+    <color name="secondary_blue">#42A5F5</color>
+    <color name="gradient_start">#1E88E5</color>
+    <color name="gradient_end">#42A5F5</color>
+    
+    <!-- Message Bubble Colors -->
+    <color name="user_message_bg">#1E88E5</color>
+    <color name="user_message_text">#FFFFFF</color>
+    <color name="bot_message_bg">#E3F2FD</color>
+    <color name="bot_message_text">#1565C0</color>
+    
+    <!-- UI Colors -->
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_dark">#F5F5F5</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="divider">#BDBDBD</color>
+</resources>

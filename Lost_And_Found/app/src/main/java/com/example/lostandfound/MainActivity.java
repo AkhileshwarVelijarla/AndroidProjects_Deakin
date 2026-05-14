@@ -18,5 +18,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, CreateAdvertActivity.class)));
         binding.showItemsButton.setOnClickListener(v ->
                 startActivity(new Intent(this, ItemListActivity.class)));
+        binding.showMapButton.setOnClickListener(v ->
+                startActivity(new Intent(this, MapsActivity.class)));
     }
 }

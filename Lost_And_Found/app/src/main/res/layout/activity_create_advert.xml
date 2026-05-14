@@ -96,9 +96,23 @@
                 android:id="@+id/locationEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Location"
+                android:hint="Location or address"
                 android:inputType="textPostalAddress"
                 android:text="@={vm.location}" />
+
+            <Button
+                android:id="@+id/searchLocationButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Search location" />
+
+            <Button
+                android:id="@+id/currentLocationButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Get current location" />
 
             <Button
                 android:id="@+id/selectImageButton"

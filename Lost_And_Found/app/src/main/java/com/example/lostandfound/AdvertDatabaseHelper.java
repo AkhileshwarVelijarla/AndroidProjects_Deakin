@@ -11,7 +11,7 @@ import java.util.List;
 
 public class AdvertDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "lost_found.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     static final String TABLE_NAME = "adverts";
     private static final String COL_ID = "id";
@@ -23,6 +23,8 @@ public class AdvertDatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_LOCATION = "location";
     private static final String COL_CATEGORY = "category";
     private static final String COL_IMAGE_URI = "image_uri";
+    private static final String COL_LATITUDE = "latitude";
+    private static final String COL_LONGITUDE = "longitude";
     private static final String COL_CREATED_TIMESTAMP = "created_timestamp";
 
     public AdvertDatabaseHelper(Context context) {
@@ -41,13 +43,19 @@ public class AdvertDatabaseHelper extends SQLiteOpenHelper {
                 + COL_LOCATION + " TEXT NOT NULL, "
                 + COL_CATEGORY + " TEXT NOT NULL, "
                 + COL_IMAGE_URI + " TEXT NOT NULL, "
+                + COL_LATITUDE + " REAL NOT NULL DEFAULT 0, "
+                + COL_LONGITUDE + " REAL NOT NULL DEFAULT 0, "
                 + COL_CREATED_TIMESTAMP + " INTEGER NOT NULL)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        onCreate(db);
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN "
+                    + COL_LATITUDE + " REAL NOT NULL DEFAULT 0");
+            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN "
+                    + COL_LONGITUDE + " REAL NOT NULL DEFAULT 0");
+        }
     }
 
     public long insertItem(Advert advert) {
@@ -61,6 +69,8 @@ public class AdvertDatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_LOCATION, advert.getLocation());
         values.put(COL_CATEGORY, advert.getCategory());
         values.put(COL_IMAGE_URI, advert.getImageUri());
+        values.put(COL_LATITUDE, advert.getLatitude());
+        values.put(COL_LONGITUDE, advert.getLongitude());
         values.put(COL_CREATED_TIMESTAMP, advert.getCreatedTimestamp());
         return db.insert(TABLE_NAME, null, values);
     }
@@ -121,6 +131,8 @@ public class AdvertDatabaseHelper extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndexOrThrow(COL_LOCATION)),
                 cursor.getString(cursor.getColumnIndexOrThrow(COL_CATEGORY)),
                 cursor.getString(cursor.getColumnIndexOrThrow(COL_IMAGE_URI)),
+                cursor.getDouble(cursor.getColumnIndexOrThrow(COL_LATITUDE)),
+                cursor.getDouble(cursor.getColumnIndexOrThrow(COL_LONGITUDE)),
                 cursor.getLong(cursor.getColumnIndexOrThrow(COL_CREATED_TIMESTAMP))
         );
     }
