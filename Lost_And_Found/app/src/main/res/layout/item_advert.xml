@@ -12,16 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="#F5F5F5"
+        android:background="@drawable/bg_card"
         android:clickable="true"
+        android:elevation="1dp"
         android:focusable="true"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="14dp">
 
         <ImageView
-            android:layout_width="86dp"
-            android:layout_height="86dp"
-            android:background="#DDDDDD"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:background="@drawable/bg_image_placeholder"
             android:contentDescription="Advert image"
             android:scaleType="centerCrop"
             app:imageUri="@{advert.imageUri}" />
@@ -37,7 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text='@{advert.postType + ": " + advert.name}'
-                android:textSize="17sp"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -45,23 +47,33 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:maxLines="2"
-                android:text="@{advert.description}" />
+                android:text="@{advert.description}"
+                android:textColor="@color/text_secondary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/bg_chip"
+                android:text="@{advert.category}"
+                android:textColor="@color/text_primary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text='@{"Category: " + advert.category}' />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text='@{"Lost/Found at: " + advert.dateText}' />
+                android:layout_marginTop="7dp"
+                android:text='@{"Last seen: " + advert.dateText}'
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text='@{"Posted: "}'
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp"
                 app:postedTime="@{advert.createdTimestamp}" />
         </LinearLayout>
     </LinearLayout>

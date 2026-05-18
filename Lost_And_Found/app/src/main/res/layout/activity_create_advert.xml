@@ -10,7 +10,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_app_gradient">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,36 +22,58 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Create Advert"
-                android:textSize="24sp"
+                android:text="New Item"
+                android:textColor="@color/text_primary"
+                android:textSize="34sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Add the details people need to reconnect this item."
+                android:textColor="@color/text_secondary"
+                android:textSize="15sp" />
 
             <RadioGroup
                 android:id="@+id/postTypeGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:orientation="horizontal">
+                android:background="@drawable/bg_card"
+                android:elevation="1dp"
+                android:orientation="horizontal"
+                android:padding="4dp">
 
                 <RadioButton
                     android:id="@+id/lostRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lost" />
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/accent"
+                    android:gravity="center"
+                    android:text="Lost"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/foundRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:text="Found" />
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/accent"
+                    android:gravity="center"
+                    android:text="Found"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
             </RadioGroup>
 
             <EditText
                 android:id="@+id/nameEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_input"
                 android:hint="Name"
                 android:inputType="textPersonName"
                 android:text="@={vm.name}" />
@@ -58,7 +81,9 @@
             <EditText
                 android:id="@+id/phoneEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="52dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_input"
                 android:hint="Phone"
                 android:inputType="phone"
                 android:text="@={vm.phone}" />
@@ -67,6 +92,8 @@
                 android:id="@+id/descriptionEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_input"
                 android:hint="Description"
                 android:inputType="textMultiLine"
                 android:minLines="3"
@@ -75,18 +102,26 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Category" />
+                android:layout_marginTop="14dp"
+                android:text="Category"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/categorySpinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="50dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_input"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp" />
 
             <EditText
                 android:id="@+id/dateEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_input"
                 android:focusable="false"
                 android:hint="Date and time item was lost/found"
                 android:inputType="none"
@@ -96,6 +131,8 @@
                 android:id="@+id/locationEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_input"
                 android:hint="Location or address"
                 android:inputType="textPostalAddress"
                 android:text="@={vm.location}" />
@@ -103,23 +140,38 @@
             <Button
                 android:id="@+id/searchLocationButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Search location" />
+                android:layout_height="52dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_secondary_button"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/primary"
+                android:text="Search location"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/currentLocationButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="52dp"
                 android:layout_marginTop="8dp"
-                android:text="Get current location" />
+                android:backgroundTint="@color/primary"
+                android:text="Get current location"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/selectImageButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="52dp"
                 android:layout_marginTop="14dp"
-                android:text="Upload/select image" />
+                android:background="@drawable/bg_secondary_button"
+                android:text="Upload/select image"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imagePreview"
@@ -127,7 +179,7 @@
                 android:layout_height="180dp"
                 android:layout_marginTop="10dp"
                 android:adjustViewBounds="true"
-                android:background="#EEEEEE"
+                android:background="@drawable/bg_image_placeholder"
                 android:contentDescription="Selected image"
                 android:scaleType="centerCrop"
                 app:imageUri="@{vm.imageUri}" />
@@ -135,9 +187,13 @@
             <Button
                 android:id="@+id/saveButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:layout_marginTop="20dp"
-                android:text="Save" />
+                android:backgroundTint="@color/primary"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>
 </layout>
